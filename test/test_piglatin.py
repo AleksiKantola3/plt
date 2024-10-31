@@ -2,7 +2,7 @@ import unittest
 
 import piglatin
 from piglatin import PigLatin
-from error import PigLatinError
+from piglatin_error import PigLatinError
 
 
 class TestPigLatin(unittest.TestCase):
@@ -69,3 +69,10 @@ class TestPigLatin(unittest.TestCase):
         translator = PigLatin(phrase)
         translator.translate()
         self.assertEqual("ellohay orldway!", translator.get_phrase())
+
+
+    def test_translate_phrase_with_more_words_and_invalid_punctuations(self):
+        phrase = "hello world#"
+        translator = PigLatin(phrase)
+
+        self.assertRaises(PigLatinError, translator.translate)

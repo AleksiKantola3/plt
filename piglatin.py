@@ -1,14 +1,9 @@
-from fnmatch import translate
-
-
-class PigLatinError:
-    pass
-
+from piglatin_error import PigLatinError
 
 class PigLatin:
     def __init__(self, phrase: str):
         self.phrase = phrase if phrase else "nil"
-        allowed_punctuations = [".", ",", ";", ":", "'", "!", "?", "(", ")"]
+        self.allowed_punctuations = [".", ",", ";", ":", "'", "!", "?", "(", ")"]
 
     def get_phrase(self) -> str:
         return self.phrase
@@ -25,15 +20,14 @@ class PigLatin:
 
     def translate_single_word(self, word: str) -> str:
         container = ""
-        allowed_punctuations = [".", ",", ";", ":", "'", "!", "?", "(", ")"]
         if '-' in word:
             parts = word.split('-')
             translated_parts = [self.translate_single_word(part) for part in parts]
             return '-'.join(translated_parts)
         if not word[-1].isalpha():
-            if word[-1] in allowed_punctuations:
+            if word[-1] in self.allowed_punctuations:
                 container = word[-1]
-                word = word[: -1]
+                word = word[:-1]
                 word = self.translate_single_word(word)
                 return word + container
             else:
