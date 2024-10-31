@@ -9,17 +9,25 @@ class PigLatin:
     def translate(self):
         if self.phrase == "nil":
             pass
-        elif self.phrase[0] in 'aeiou':
-            if self.phrase[-1] == 'y':
-                self.phrase += 'nay'
-            elif self.phrase[-1] in 'aeiou':
-                self.phrase += 'yay'
-            else:
-                self.phrase += 'ay'
+        elif ' ' in self.phrase:
+            words = self.phrase.split()
+            translated_words = [self.translate_single_word(word) for word in words]
+            self.phrase = ' '.join(translated_words)
         else:
-            first_vowel_idx = next((i for i, char in enumerate(self.phrase) if char in 'aeiou'), None)
-            if first_vowel_idx is not None and first_vowel_idx > 0:
-                self.phrase = self.phrase[first_vowel_idx:] + self.phrase[:first_vowel_idx] + 'ay'
+            self.phrase = self.translate_single_word(self.phrase)
+
+    def translate_single_word(self, word: str) -> str:
+        if word[0] in 'aeiou':
+            if word[-1] == 'y':
+                return word + 'nay'
+            elif word[-1] in 'aeiou':
+                return word + 'yay'
             else:
-                self.phrase += 'ay'
+                return word + 'ay'
+        else:
+            first_vowel_idx = next((i for i, char in enumerate(word) if char in 'aeiou'), None)
+            if first_vowel_idx is not None and first_vowel_idx > 0:
+                return word[first_vowel_idx:] + word[:first_vowel_idx] + 'ay'
+            else:
+                return word + 'ay'
 
