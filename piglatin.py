@@ -10,6 +10,8 @@ class PigLatin:
         if self.phrase[0] in 'aeiou':
             if self.phrase[-1] == 'y':
                 self.phrase += 'nay'
-            else:
+            elif self.phrase[-1] in 'aeiou':
                 self.phrase += 'yay'
+            else:
+                self.phrase += 'ay'
 
