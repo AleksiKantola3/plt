@@ -17,5 +17,9 @@ class PigLatin:
             else:
                 self.phrase += 'ay'
         else:
-            self.phrase = self.phrase[1:] + self.phrase[0] + 'ay'
+            first_vowel_idx = next((i for i, char in enumerate(self.phrase) if char in 'aeiou'), None)
+            if first_vowel_idx is not None and first_vowel_idx > 0:
+                self.phrase = self.phrase[first_vowel_idx:] + self.phrase[:first_vowel_idx] + 'ay'
+            else:
+                self.phrase += 'ay'
 
