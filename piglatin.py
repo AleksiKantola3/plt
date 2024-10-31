@@ -17,7 +17,11 @@ class PigLatin:
             self.phrase = self.translate_single_word(self.phrase)
 
     def translate_single_word(self, word: str) -> str:
-        if word[0] in 'aeiou':
+        if '-' in word:
+            parts = word.split('-')
+            translated_parts = [self.translate_single_word(part) for part in parts]
+            return '-'.join(translated_parts)
+        elif word[0] in 'aeiou':
             if word[-1] == 'y':
                 return word + 'nay'
             elif word[-1] in 'aeiou':
