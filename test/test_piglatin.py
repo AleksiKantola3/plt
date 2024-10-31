@@ -24,3 +24,10 @@ class TestPigLatin(unittest.TestCase):
         translator = PigLatin(phrase)
         translator.translate()
         self.assertEqual("anynay", translator.get_phrase())
+
+
+    def test_translate_phrase_starts_with_vowel_ends_in_vowel_not_y(self):
+        phrase = "apple"
+        translator = PigLatin(phrase)
+        translator.translate()
+        self.assertEqual("appleyay", translator.get_phrase())

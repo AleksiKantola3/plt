@@ -7,6 +7,9 @@ class PigLatin:
         return self.phrase
 
     def translate(self):
-        if self.phrase[0] in 'aeiou' and self.phrase[-1] == 'y':
-            self.phrase += 'nay'
+        if self.phrase[0] in 'aeiou':
+            if self.phrase[-1] == 'y':
+                self.phrase += 'nay'
+            else:
+                self.phrase += 'yay'
 
