@@ -1,7 +1,14 @@
+from fnmatch import translate
+
+
+class PigLatinError:
+    pass
+
 
 class PigLatin:
     def __init__(self, phrase: str):
         self.phrase = phrase if phrase else "nil"
+        allowed_punctuations = [".", ",", ";", ":", "'", "!", "?", "(", ")"]
 
     def get_phrase(self) -> str:
         return self.phrase
@@ -9,18 +16,28 @@ class PigLatin:
     def translate(self):
         if self.phrase == "nil":
             pass
-        elif ' ' in self.phrase or '!' in self.phrase:
-            words = self.phrase.rstrip('!').split()
+        elif ' ' in self.phrase:
+            words = self.phrase.split()
             translated_words = [self.translate_single_word(word) for word in words]
-            self.phrase = ' '.join(translated_words) + ('!' if self.phrase.endswith('!') else '')
+            self.phrase = ' '.join(translated_words)
         else:
             self.phrase = self.translate_single_word(self.phrase)
 
     def translate_single_word(self, word: str) -> str:
+        container = ""
+        allowed_punctuations = [".", ",", ";", ":", "'", "!", "?", "(", ")"]
         if '-' in word:
             parts = word.split('-')
             translated_parts = [self.translate_single_word(part) for part in parts]
             return '-'.join(translated_parts)
+        if not word[-1].isalpha():
+            if word[-1] in allowed_punctuations:
+                container = word[-1]
+                word = word[: -1]
+                word = self.translate_single_word(word)
+                return word + container
+            else:
+                raise PigLatinError
         elif word[0] in 'aeiou':
             if word[-1] == 'y':
                 return word + 'nay'
