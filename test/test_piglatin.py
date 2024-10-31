@@ -44,4 +44,3 @@ class TestPigLatin(unittest.TestCase):
         translator.translate()
         self.assertEqual("ellohay", translator.get_phrase())
 
-
