@@ -9,10 +9,10 @@ class PigLatin:
     def translate(self):
         if self.phrase == "nil":
             pass
-        elif ' ' in self.phrase:
-            words = self.phrase.split()
+        elif ' ' in self.phrase or '!' in self.phrase:
+            words = self.phrase.rstrip('!').split()
             translated_words = [self.translate_single_word(word) for word in words]
-            self.phrase = ' '.join(translated_words)
+            self.phrase = ' '.join(translated_words) + ('!' if self.phrase.endswith('!') else '')
         else:
             self.phrase = self.translate_single_word(self.phrase)
 
