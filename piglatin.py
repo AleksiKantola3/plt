@@ -16,4 +16,6 @@ class PigLatin:
                 self.phrase += 'yay'
             else:
                 self.phrase += 'ay'
+        else:
+            self.phrase = self.phrase[1:] + self.phrase[0] + 'ay'
 
